@@ -14,7 +14,13 @@
     <!-- Auth Container -->
     <div class="auth-container">
       <div class="auth-box">
-        <h2 id="form-title">Login</h2>
+        <h2 id="form-title">Login as Client</h2>
+
+        <!-- Role Buttons -->
+        <div class="role-switch">
+          <button id="client-btn" class="role-btn active">Client</button>
+          <button id="freelancer-btn" class="role-btn">Freelancer</button>
+        </div>
 
         <!-- Login Form -->
         <form id="login-form" class="form active">
@@ -50,18 +56,43 @@
       const showLogin = document.getElementById("show-login");
       const formTitle = document.getElementById("form-title");
 
+      const clientBtn = document.getElementById("client-btn");
+      const freelancerBtn = document.getElementById("freelancer-btn");
+
+      // Switch Login/Register
       showRegister.addEventListener("click", (e) => {
         e.preventDefault();
         loginForm.classList.remove("active");
         registerForm.classList.add("active");
-        formTitle.innerText = "Register";
+        formTitle.innerText = clientBtn.classList.contains("active")
+          ? "Register as Client"
+          : "Register as Freelancer";
       });
 
       showLogin.addEventListener("click", (e) => {
         e.preventDefault();
         registerForm.classList.remove("active");
         loginForm.classList.add("active");
-        formTitle.innerText = "Login";
+        formTitle.innerText = clientBtn.classList.contains("active")
+          ? "Login as Client"
+          : "Login as Freelancer";
+      });
+
+      // Switch Roles
+      clientBtn.addEventListener("click", () => {
+        clientBtn.classList.add("active");
+        freelancerBtn.classList.remove("active");
+        formTitle.innerText = loginForm.classList.contains("active")
+          ? "Login as Client"
+          : "Register as Client";
+      });
+
+      freelancerBtn.addEventListener("click", () => {
+        freelancerBtn.classList.add("active");
+        clientBtn.classList.remove("active");
+        formTitle.innerText = loginForm.classList.contains("active")
+          ? "Login as Freelancer"
+          : "Register as Freelancer";
       });
     </script>
   </body>
